@@ -1,12 +1,3 @@
-
-# 3º Semestre - ADS - Grupo 01
-<div>
-  <img loading="lazy" src="https://github.com/3-ads-grupo-01/.github/assets/125999178/9997b38b-354a-4a19-a40b-fc905a2743c2" width="100%" height="auto" object-fit="cover"/> 
-</div>
-
-
-
-
 ## Sobre o Projeto
 
   Escopo do Software de Controle de Equipamentos e Utensílios do Biopark Educação
