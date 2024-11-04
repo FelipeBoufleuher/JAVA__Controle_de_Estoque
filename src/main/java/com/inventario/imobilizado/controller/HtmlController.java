@@ -199,7 +199,7 @@ public class HtmlController {
 
         Item item = itemInterface.findById(id).get();
         if (item.getEstado().equals("Emprestado") || item.getEstado().equals("Manutenção")) {
-            System.out.println("item Indisponível");
+            logger.info("Item Indisponível");
 
             return new ModelAndView(REDIRECT_INFO_GERAL);
         }
