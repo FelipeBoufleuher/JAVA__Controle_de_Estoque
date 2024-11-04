@@ -44,7 +44,7 @@ public class LocationController {
 
     @PostMapping("/location")
     public ModelAndView postLocation(@ModelAttribute Location location, RedirectAttributes redirectAttributes){
-        System.out.println(location.getNome());
+        logger.info("Location name: {}", location.getNome());
         locationInterface.save(location);
         redirectAttributes.addFlashAttribute("locationSaved", true);
         return new ModelAndView("redirect:/page/location");
