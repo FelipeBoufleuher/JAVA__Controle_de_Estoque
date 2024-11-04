@@ -26,8 +26,8 @@ public class JwtUtils {
                 .claim("name", user.getNome())
                 .claim("profile", user.getSobrenome())
                 .claim("email", user.getEmail())
-                .claim("tipo_user", user.getTipo_usuario())
-                .claim("id_user", user.getId_usuario())
+                .claim("tipo_user", user.getTipoUsuario())
+                .claim("id_user", user.getIdUsuario())
                 .signWith(key)
                 .compact();
         return new JwtToken(token, expirationMillis);

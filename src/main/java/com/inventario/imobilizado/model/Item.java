@@ -13,54 +13,39 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id_item")
+@EqualsAndHashCode(of = "idItem")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_item;
-
+    private Integer idItem;
     private String descricao;
-
-    private String localizacao_atual;
-
+    private String localizacaoAtual;
     private Integer potencia;
-
     private String patrimonio;
-
-    private String numero_de_serie;
-
-    private String numero_nota_fiscal;
-
-    private String comentario_manutencao;
-
-    @Temporal(TemporalType.DATE)
-    private Date data_entrada;
-
-    @Temporal(TemporalType.DATE)
-    private Date ultima_qualificacao;
-
-    @Temporal(TemporalType.DATE)
-    private Date data_nota_fiscal;
-
-    @Temporal(TemporalType.DATE)
-    private Date proxima_qualificacao;
-
-    @Temporal(TemporalType.DATE)
-    private Date prazo_manutencao;
-
+    private String numeroDeSerie;
+    private String numeroNotaFiscal;
+    private String comentarioManutencao;
     private String estado;
+
+    @Temporal(TemporalType.DATE)
+    private Date dataEntrada;
+    @Temporal(TemporalType.DATE)
+    private Date ultimaQualificacao;
+    @Temporal(TemporalType.DATE)
+    private Date dataNotaFiscal;
+    @Temporal(TemporalType.DATE)
+    private Date proximaQualificacao;
+    @Temporal(TemporalType.DATE)
+    private Date prazoManutencao;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id_categoria")
     private Category categoria;
-
     @Column(name = "status_item")
     private String status;
-
     @ManyToOne
     @JoinColumn(name = "modelo_id_modelo")
     private Modelo modelo;
-
     @ManyToOne
     @JoinColumn(name = "localizacao_id_localizacao")
     private Location localizacao;

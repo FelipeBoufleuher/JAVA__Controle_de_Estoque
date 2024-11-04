@@ -35,14 +35,11 @@ public class ActionController {
     @PostMapping("/")
     public ResponseEntity<Action> postAction(@RequestBody ActionRequest data) {
         Action action = new Action();
-        action.setRa_rna(data.getRa_rna());
+        action.setRaRna(data.getRaRna());
         action.setEntidade(data.getEntidade());
-//            action.setData_emprestimo(new Date(data.getData_emprestimo()));
-//            action.setData_devolucao(new Date(data.getData_devolucao()));
-        action.setUsuario(userInterface.findById(data.getId_usuario()).get());
-        action.setItem(itemInterface.findById(data.getId_item()).get());
-        action.setAnexos(attachmentInterface.findById(data.getId_anexos()).get());
-//            action.setLocalizacao(data.getItem().getLocalizacao_atual());
+        action.setUsuario(userInterface.findById(data.getIdUsuario()).get());
+        action.setItem(itemInterface.findById(data.getIdItem()).get());
+        action.setAnexos(attachmentInterface.findById(data.getIdAnexos()).get());
         actionInterface.save(action);
 
         return ResponseEntity.ok(action);
@@ -51,10 +48,10 @@ public class ActionController {
 
 
     @GetMapping("/")
-    public ResponseEntity<List<Action>> GetAll(){
-        List<Action> AllItems = actionInterface.findAll();
+    public ResponseEntity<List<Action>> getAll(){
+        List<Action> allItems = actionInterface.findAll();
 
-        return ResponseEntity.ok(AllItems);
+        return ResponseEntity.ok(allItems);
     }
 
 

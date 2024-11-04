@@ -9,8 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -28,27 +26,27 @@ public class UserController {
     }
 
     @GetMapping("/getByEmail/{email}")
-    public ResponseEntity<User> GetByEmail(@PathVariable String email){
+    public ResponseEntity<User> getByEmail(@PathVariable String email){
         User user = userInterface.findByEmail(email);
         return ResponseEntity.ok(user);
     }
 
     @PostMapping("/")
-    public ResponseEntity<User> PostUser(@RequestBody User user ){
+    public ResponseEntity<User> postUser(@RequestBody User user ){
         userInterface.save(user);
         return ResponseEntity.ok(user);
     }
 
     @PutMapping("/{id_usuario}")
-    public ResponseEntity<User> PutUser(@PathVariable Integer id_usuario, @RequestBody User newUser) {
-        userInterface.findById(id_usuario)
+    public ResponseEntity<User> putUser(@PathVariable Integer idUsuario, @RequestBody User newUser) {
+        userInterface.findById(idUsuario)
                 .map(user -> {
                     user.setNome(newUser.getNome());
                     user.setSobrenome(newUser.getSobrenome());
-                    user.setTipo_usuario(newUser.getTipo_usuario());
+                    user.setTipoUsuario(newUser.getTipoUsuario());
                     user.setEmail(newUser.getEmail());
                     user.setSenha(newUser.getSenha());
-                    newUser.setId_usuario(user.getId_usuario());
+                    newUser.setIdUsuario(user.getIdUsuario());
                     return userInterface.save(user);
                 })
                 .orElseThrow();
@@ -56,14 +54,14 @@ public class UserController {
     }
 
     @DeleteMapping("/{id_usuario}")
-    public ResponseEntity<String> DeleteUser(@PathVariable Integer id_usuario){
-        userInterface.deleteById(id_usuario);
+    public ResponseEntity<String> DeleteUser(@PathVariable Integer idUsuario){
+        userInterface.deleteById(idUsuario);
         return ResponseEntity.ok("Usuário Deletado com Sucesso");
     }
 
 
     @GetMapping("/paged")
-    public Page<User> PagedUser(Integer page, Integer pageSize, UserInterface userInterface,String order) {
+    public Page<User> pagedUser(Integer page, Integer pageSize, UserInterface userInterface,String order) {
         // http://localhost:8080/page/Usuarios?order=nome
         if (order.equals("nome")){
             Page<User> userList = userInterface.findAll(PageRequest.of(page,pageSize, Sort.by("nome")));

@@ -9,13 +9,13 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id_anexos")
+@EqualsAndHashCode(of = "idAnexos")
 public class Attachment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_anexos")
-    private int id_anexos;
+    private int idAnexos;
 
     @Column(name = "nome")
     private String nome;

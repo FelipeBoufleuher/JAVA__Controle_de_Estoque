@@ -38,7 +38,7 @@
 
 		<sonar.projectKey>controledeestoque</sonar.projectKey>
 		<sonar.host.url>http://localhost:9000</sonar.host.url>
-		<sonar.login>your-sonarqube-token</sonar.login>
+		<sonar.login>${env.SONAR_TOKEN}</sonar.login>
 	</properties>
 	<dependencies>
 		<dependency>

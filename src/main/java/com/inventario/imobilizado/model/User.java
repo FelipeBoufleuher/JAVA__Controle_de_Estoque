@@ -10,15 +10,15 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id_usuario")
+@EqualsAndHashCode(of = "idUsuario")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_usuario")
-	private int id_usuario;
+	private int idUsuario;
 	private String nome;
 	private String sobrenome;
-	private String tipo_usuario;
+	private String tipoUsuario;
     private String email;
     private String senha;
 

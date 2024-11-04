@@ -24,6 +24,11 @@ public class HtmlController {
     private UserController userController = new UserController();
     private ItemController itemController = new ItemController();
 
+    private final String CATEGORIES = "categories";
+    private final String BRANDS = "brands";
+    private final String LOCATIONS = "locations";
+
+    private final String REDIRECT_INFO_GERAL = "redirect:/page/infoGeral";
 
     @Autowired
     private ItemInterface itemInterface;
@@ -61,12 +66,12 @@ public class HtmlController {
         pageSize = Math.max(1, pageSize);
         page = Math.max(0, page);
 
-        Page<Item> itemList = itemController.PagedItem(page, pageSize, itemInterface, order);
+        Page<Item> itemList = itemController.pagedItem(page, pageSize, itemInterface, order);
         List<Category> categories = categoryInterface.findAll(); // Fetch categories
 
         modelAndView.addObject("item", itemList.getContent()); // Add items to the model
         modelAndView.addObject("page", itemList); // Add page information to the model
-        modelAndView.addObject("categories", categories); // Add categories to the model
+        modelAndView.addObject(CATEGORIES, categories); // Add categories to the model
         modelAndView.setViewName("infoGeral");
 
         return modelAndView;
@@ -83,7 +88,7 @@ public class HtmlController {
         page = Math.max(0, page);
 
 
-        Page<User> userList = userController.PagedUser(page, pageSize, userInterface, order);
+        Page<User> userList = userController.pagedUser(page, pageSize, userInterface, order);
 
         modelAndView.addObject("usuarios", userList.getContent()); // Add users to the model
         modelAndView.addObject("page", userList); // Add page information to the model
@@ -100,13 +105,13 @@ public class HtmlController {
         List<Item> overdueItems = new ArrayList<>();
 
         for (Item item : items) {
-            if (item.getProxima_qualificacao().before(currentDate)) {
+            if (item.getProximaQualificacao().before(currentDate)) {
                 overdueItems.add(item);
             }
         }
 
         List<Boolean> isOverdue = overdueItems.stream()
-                .map(item -> item.getProxima_qualificacao().before(currentDate))
+                .map(item -> item.getProximaQualificacao().before(currentDate))
                 .collect(Collectors.toList());
 
         ModelAndView modelAndView = new ModelAndView();
@@ -127,7 +132,7 @@ public class HtmlController {
         modelAndView.setViewName("infoEspecifica");
 
 
-        List<Action> actions = actionInterface.findByItem_IdItem(id);
+        List<Action> actions = actionInterface.findByItemIdItem(id);
         Collections.reverse(actions);
         modelAndView.addObject("actions", actions);
 
@@ -141,7 +146,7 @@ public class HtmlController {
         ModelAndView modelAndView = new ModelAndView();
 
         List<Item> allItens = itemInterface.findAll();
-        Integer id = (allItens.isEmpty()) ? 1 : allItens.get(allItens.size() - 1).getId_item() + 1;
+        Integer id = (allItens.isEmpty()) ? 1 : allItens.get(allItens.size() - 1).getIdItem() + 1;
 
         List<Category> categories = categoryInterface.findAll();
         List<Location> locations = locationInterface.findAll();
@@ -149,10 +154,10 @@ public class HtmlController {
         List<Brand> brands = brandInterface.findAll();
 
         modelAndView.addObject("id", id);
-        modelAndView.addObject("brands", brands);
+        modelAndView.addObject(BRANDS, brands);
         modelAndView.addObject("modelo", modelo);
-        modelAndView.addObject("categories", categories);
-        modelAndView.addObject("locations", locations);
+        modelAndView.addObject(CATEGORIES, categories);
+        modelAndView.addObject(LOCATIONS, locations);
 
         modelAndView.addObject("data", new RequestItem());
         modelAndView.addObject("isEdit", false);
@@ -174,10 +179,10 @@ public class HtmlController {
         List<Brand> brands = brandInterface.findAll();
 
         modelAndView.addObject("id", id);
-        modelAndView.addObject("brands", brands);
+        modelAndView.addObject(BRANDS, brands);
         modelAndView.addObject("modelo", modelo);
-        modelAndView.addObject("categories", categories);
-        modelAndView.addObject("locations", locations);
+        modelAndView.addObject(CATEGORIES, categories);
+        modelAndView.addObject(LOCATIONS, locations);
 
         modelAndView.addObject("data", item);
         modelAndView.addObject("isEdit", true);
@@ -188,7 +193,7 @@ public class HtmlController {
     }
 
     @GetMapping("/Emprestimo")
-    public ModelAndView Emprestimo(@RequestParam(name = "id") Integer id, Model model) {
+    public ModelAndView emprestimo(@RequestParam(name = "id") Integer id, Model model) {
         ModelAndView modelAndView = new ModelAndView();
         Action action = new Action();
 
@@ -196,7 +201,7 @@ public class HtmlController {
         if (item.getEstado().equals("Emprestado") || item.getEstado().equals("Manutenção")) {
             System.out.println("item Indisponível");
 
-            return new ModelAndView("redirect:/page/infoGeral");
+            return new ModelAndView(REDIRECT_INFO_GERAL);
         }
         action.setItem(item);
 
@@ -205,14 +210,14 @@ public class HtmlController {
         List<Location> locations = locationInterface.findAll();
         List<User> users = userInterface.findAll();
 
-        modelAndView.addObject("locations", locations);
+        modelAndView.addObject(LOCATIONS, locations);
         modelAndView.addObject("users", users);
 
 
         modelAndView.setViewName("Emprestimo");
         //      guardando id item
         ActionRequest actionRequest = new ActionRequest();
-        actionRequest.setId_item(id);
+        actionRequest.setIdItem(id);
 
         modelAndView.addObject("data", actionRequest);
 
@@ -220,28 +225,28 @@ public class HtmlController {
     }
 
     @GetMapping("/Devolucao")
-    public ModelAndView Devolucao(@RequestParam(name = "id") Integer id, Model model) {
+    public ModelAndView devolucao(@RequestParam(name = "id") Integer id, Model model) {
 
-        List<Action> actionDevolucao = actionInterface.findByItem_IdItem(id);
+        List<Action> actionDevolucao = actionInterface.findByItemIdItem(id);
 
         Action lastAction;
         if (!actionDevolucao.isEmpty()) {
             lastAction = actionDevolucao.get(actionDevolucao.size() - 1);
-            if (lastAction.getTipo_acao() == 0){
+            if (lastAction.getTipoAcao() == 0){
                 System.out.println("item já devolvido");
-                return new ModelAndView("redirect:/page/infoGeral");
+                return new ModelAndView(REDIRECT_INFO_GERAL);
             }
             else {
                 Action devolver = new Action();
-                devolver.setRa_rna(lastAction.getRa_rna());
+                devolver.setRaRna(lastAction.getRaRna());
                 devolver.setEntidade(lastAction.getEntidade());
-                devolver.setData_emprestimo(lastAction.getData_emprestimo());
-                devolver.setData_devolucao(lastAction.getData_devolucao());
+                devolver.setDataEmprestimo(lastAction.getDataEmprestimo());
+                devolver.setDataDevolucao(lastAction.getDataDevolucao());
                 devolver.setUsuario(lastAction.getUsuario());
                 devolver.setItem(lastAction.getItem());
-                devolver.setTipo_acao(0);
+                devolver.setTipoAcao(0);
                 devolver.setAnexos(lastAction.getAnexos());
-                devolver.setLocalizacao_id_localizacao(lastAction.getLocalizacao_id_localizacao());
+                devolver.setLocalizacaoIdLocalizacao(lastAction.getLocalizacaoIdLocalizacao());
 
                 actionInterface.save(devolver);
             }
@@ -255,7 +260,7 @@ public class HtmlController {
         }).orElseThrow();
 
 
-        return new ModelAndView("redirect:/page/infoGeral");
+        return new ModelAndView(REDIRECT_INFO_GERAL);
     }
 
 
@@ -265,9 +270,9 @@ public class HtmlController {
         List<Brand> brands = brandInterface.findAll();
         List<Modelo> modelos = modeloInterface.findAll();
         List<Category> categories = categoryInterface.findAll();
-        modelAndView.addObject("brands", brands);
+        modelAndView.addObject(BRANDS, brands);
         modelAndView.addObject("modelos", modelos);
-        modelAndView.addObject("categories", categories);
+        modelAndView.addObject(CATEGORIES, categories);
         modelAndView.addObject("activeField", new ActiveFieldForm());
         modelAndView.setViewName("activeFieldRegistration");
         return modelAndView;
@@ -277,10 +282,10 @@ public class HtmlController {
     private LocationInterface locationInterface;
 
     @GetMapping("/location")
-    public ModelAndView NovaLocalizacao(Model model) {
+    public ModelAndView novaLocalizacao(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         List<Location> locations = locationInterface.findAll();
-        modelAndView.addObject("locations", locations);
+        modelAndView.addObject(LOCATIONS, locations);
         modelAndView.addObject("location", new Location());
         modelAndView.setViewName("location");
         return modelAndView;
@@ -296,28 +301,28 @@ public class HtmlController {
 
     @PostMapping("/Emprestimo")
     public ModelAndView registrarEmprestimo(@ModelAttribute ActionRequest action, @RequestParam(name = "id") Integer id) {
-        action.setId_item(id);
+        action.setIdItem(id);
 
         Action postAction = new Action();
-        postAction.setRa_rna(action.getRa_rna());
+        postAction.setRaRna(action.getRaRna());
         postAction.setEntidade(action.getEntidade());
-        postAction.setData_emprestimo(action.getData_emprestimo());
-        postAction.setData_devolucao(action.getData_devolucao());
-        postAction.setUsuario(userInterface.findById(action.getId_usuario()).get());
-        postAction.setItem(itemInterface.findById(action.getId_item()).get());
-        postAction.setTipo_acao(1);
+        postAction.setDataEmprestimo(action.getData_emprestimo());
+        postAction.setDataDevolucao(action.getData_devolucao());
+        postAction.setUsuario(userInterface.findById(action.getIdUsuario()).get());
+        postAction.setItem(itemInterface.findById(action.getIdItem()).get());
+        postAction.setTipoAcao(1);
         postAction.setAnexos(attachmentInterface.findById(1).get());
-        postAction.setLocalizacao_id_localizacao(action.getId_localizacao_atual());
+        postAction.setLocalizacaoIdLocalizacao(action.getIdLocalizacaoAtual());
 
         actionInterface.save(postAction);
         // altera a disponibilidade do item
         itemInterface.findById(id).map(item -> {
             item.setEstado(action.getEstado());
-            item.setPrazo_manutencao(action.getPrazo_manutencao());
+            item.setPrazoManutencao(action.getPrazoManutencao());
             return itemInterface.save(item);
         }).orElseThrow();
 
-        return new ModelAndView("redirect:/page/infoGeral");
+        return new ModelAndView(REDIRECT_INFO_GERAL);
     }
 
 
@@ -325,25 +330,25 @@ public class HtmlController {
     public ModelAndView registrarProduto(@ModelAttribute RequestItem data) {
         Item item;
 
-        if (data.getId_item() != null && itemInterface.existsById(data.getId_item())) {
-            item = itemInterface.findById(data.getId_item()).orElseThrow(() -> new IllegalArgumentException("Invalid item Id:" + data.getId_item()));
+        if (data.getIdItem() != null && itemInterface.existsById(data.getIdItem())) {
+            item = itemInterface.findById(data.getIdItem()).orElseThrow(() -> new IllegalArgumentException("Invalid item Id:" + data.getIdItem()));
         } else {
             item = new Item();
         }
 
-        item.setId_item(data.getId_item());
+        item.setIdItem(data.getIdItem());
         item.setDescricao(data.getDescricao());
         item.setPotencia(data.getPotencia());
         item.setPatrimonio(data.getPatrimonio());
-        item.setData_nota_fiscal(data.getData_nota_fiscal());
-        item.setLocalizacao_atual(data.getLocalizacao_atual());
-        item.setData_entrada(data.getData_entrada());
-        item.setUltima_qualificacao(data.getUltima_qualificacao());
-        item.setProxima_qualificacao(data.getProxima_qualificacao());
-        item.setNumero_de_serie(data.getNumero_de_serie());
-        item.setComentario_manutencao(data.getComentario_manutencao());
-        item.setPrazo_manutencao(data.getPrazo_manutencao());
-        item.setNumero_nota_fiscal(data.getNumero_nota_fiscal());
+        item.setDataNotaFiscal(data.getDataNotaFiscal());
+        item.setLocalizacaoAtual(data.getLocalizacaoAtual());
+        item.setDataEntrada(data.getDataEntrada());
+        item.setUltimaQualificacao(data.getUltimaQualificacao());
+        item.setProximaQualificacao(data.getProximaQualificacao());
+        item.setNumeroDeSerie(data.getNumeroDeSerie());
+        item.setComentarioManutencao(data.getComentarioManutencao());
+        item.setPrazoManutencao(data.getPrazoManutencao());
+        item.setNumeroNotaFiscal(data.getNumeroNotaFiscal());
         item.setEstado(data.getEstado());
         item.setStatus(data.getStatus());
 
@@ -355,6 +360,6 @@ public class HtmlController {
         System.out.println("data:" + data.toString());
 
         itemInterface.save(item);
-        return new ModelAndView("redirect:/page/infoGeral");
+        return new ModelAndView(REDIRECT_INFO_GERAL);
     }
 }

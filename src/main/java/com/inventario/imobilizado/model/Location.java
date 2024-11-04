@@ -10,12 +10,12 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id_localizacao")
+@EqualsAndHashCode(of = "idLocalizacao")
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_localizacao")
-    private int id_localizacao;
+    private int idLocalizacao;
     private String nome;
 
     @Override

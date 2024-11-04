@@ -2,11 +2,8 @@ package com.inventario.imobilizado.controller;
 import com.inventario.imobilizado.model.Brand;
 import com.inventario.imobilizado.repository.BrandInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
