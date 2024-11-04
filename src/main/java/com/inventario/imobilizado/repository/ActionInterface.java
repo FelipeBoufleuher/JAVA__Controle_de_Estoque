@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ActionInterface extends JpaRepository<Action, Integer>, PagingAndSortingRepository<Action, Integer> {
-    @Query("SELECT a FROM Action a WHERE a.item.id_item = :itemId")
-    List<Action> findByItem_IdItem(@Param("itemId") Integer itemId);
+    @Query("SELECT a FROM Action a WHERE a.item.idItem = :itemId")
+    List<Action> findByItemIdItem(@Param("itemId") Integer itemId);
 }

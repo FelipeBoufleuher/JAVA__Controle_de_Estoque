@@ -11,12 +11,12 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id_modelo")
+@EqualsAndHashCode(of = "idModelo")
 public class Modelo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_modelo")
-    private int id_modelo;
+    private int idModelo;
     private String nome;
     @ManyToOne
     @JoinColumn(name = "marca_id_marca")

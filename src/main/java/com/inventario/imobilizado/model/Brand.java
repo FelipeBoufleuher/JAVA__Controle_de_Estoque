@@ -11,12 +11,12 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id_marca")
+@EqualsAndHashCode(of = "idMarca")
 public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_marca")
-    private int id_marca;
+    private int idMarca;
     private String nome;
 
     @Override

@@ -43,19 +43,19 @@ public class ExcelImportService {
                 Brand marca = getOrCreateMarca(getCellValueAsString(row.getCell(1)));
                 item.setModelo(getOrCreateModelo(getCellValueAsString(row.getCell(2)), marca));
                 item.setCategoria(getOrCreateCategory(getCellValueAsString(row.getCell(3))));
-                item.setNumero_de_serie(getCellValueAsString(row.getCell(4)));
+                item.setNumeroDeSerie(getCellValueAsString(row.getCell(4)));
                 item.setEstado(getCellValueAsString(row.getCell(5)));
                 item.setLocalizacao(getOrCreateLocation(getCellValueAsString(row.getCell(6))));
-                item.setLocalizacao_atual(getCellValueAsString(row.getCell(7)));
+                item.setLocalizacaoAtual(getCellValueAsString(row.getCell(7)));
                 item.setPotencia(getCellValueAsInteger(row.getCell(8)));
-                item.setNumero_nota_fiscal(getCellValueAsString(row.getCell(9)));
+                item.setNumeroNotaFiscal(getCellValueAsString(row.getCell(9)));
 
-                item.setData_nota_fiscal(getCellValueAsDate(row.getCell(10)));
-                item.setData_entrada(getCellValueAsDate(row.getCell(11)));
-                item.setUltima_qualificacao(getCellValueAsDate(row.getCell(12)));
-                item.setProxima_qualificacao(getCellValueAsDate(row.getCell(13)));
-                item.setPrazo_manutencao(getCellValueAsDate(row.getCell(14)));
-                item.setComentario_manutencao(getCellValueAsString(row.getCell(15)));
+                item.setDataNotaFiscal(getCellValueAsDate(row.getCell(10)));
+                item.setDataEntrada(getCellValueAsDate(row.getCell(11)));
+                item.setUltimaQualificacao(getCellValueAsDate(row.getCell(12)));
+                item.setProximaQualificacao(getCellValueAsDate(row.getCell(13)));
+                item.setPrazoManutencao(getCellValueAsDate(row.getCell(14)));
+                item.setComentarioManutencao(getCellValueAsString(row.getCell(15)));
                 item.setStatus(getCellValueAsString(row.getCell(16)));
 
                 items.add(item);

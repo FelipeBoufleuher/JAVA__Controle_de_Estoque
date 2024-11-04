@@ -9,15 +9,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-    public class AttachmentRequest {
-
-    private int id_anexos;
-
+public class AttachmentRequest {
+    private int idAnexos;
     private String nome;
-
     private String descricao;
-
     private String anexo;
-
-    private int id_item;
+    private int idItem;
 }

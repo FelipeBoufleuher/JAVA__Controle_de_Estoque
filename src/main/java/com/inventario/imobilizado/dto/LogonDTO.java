@@ -6,17 +6,17 @@ public class LogonDTO {
     private String nome;
     private String sobrenome;
     private String email;
-    private String tipo_usuario;
+    private String tipoUsuario;
     private String senha;
-    private String confirmar_senha;
+    private String confirmarSenha;
 
-    public LogonDTO(String nome, String sobrenome, String email, String tipo_usuario, String senha, String confirmar_senha) {
+    public LogonDTO(String nome, String sobrenome, String email, String tipoUsuario, String senha, String confirmarSenha) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
-        this.tipo_usuario = tipo_usuario;
+        this.tipoUsuario = tipoUsuario;
         this.senha = senha;
-        this.confirmar_senha = confirmar_senha;
+        this.confirmarSenha = confirmarSenha;
     }
 
     public String getNome() {
@@ -43,12 +43,12 @@ public class LogonDTO {
         this.email = email;
     }
 
-    public String getTipo_usuario() {
-        return tipo_usuario;
+    public String getTipoUsuario() {
+        return tipoUsuario;
     }
 
-    public void setTipo_usuario(String tipo_usuario) {
-        this.tipo_usuario = tipo_usuario;
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
     public String getSenha() {
@@ -59,12 +59,12 @@ public class LogonDTO {
         this.senha = senha;
     }
 
-    public String getConfirmar_senha() {
-        return confirmar_senha;
+    public String getConfirmarSenha() {
+        return confirmarSenha;
     }
 
-    public void setConfirmar_senha(String confirmar_senha) {
-        this.confirmar_senha = confirmar_senha;
+    public void setConfirmarSenha(String confirmarSenha) {
+        this.confirmarSenha = confirmarSenha;
     }
 
     @Override
@@ -72,11 +72,11 @@ public class LogonDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LogonDTO logonDTO = (LogonDTO) o;
-        return Objects.equals(nome, logonDTO.nome) && Objects.equals(sobrenome, logonDTO.sobrenome) && Objects.equals(email, logonDTO.email) && Objects.equals(tipo_usuario, logonDTO.tipo_usuario) && Objects.equals(senha, logonDTO.senha) && Objects.equals(confirmar_senha, logonDTO.confirmar_senha);
+        return Objects.equals(nome, logonDTO.nome) && Objects.equals(sobrenome, logonDTO.sobrenome) && Objects.equals(email, logonDTO.email) && Objects.equals(tipoUsuario, logonDTO.tipoUsuario) && Objects.equals(senha, logonDTO.senha) && Objects.equals(confirmarSenha, logonDTO.confirmarSenha);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, sobrenome, email, tipo_usuario, senha, confirmar_senha);
+        return Objects.hash(nome, sobrenome, email, tipoUsuario, senha, confirmarSenha);
     }
 }

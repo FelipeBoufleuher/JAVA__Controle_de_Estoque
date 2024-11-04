@@ -71,7 +71,6 @@
     </div>
 
     <div th:each="item, stat : ${overdueItems}">
-      <!-- <p th:text="${item}"></p>  print statement for debugging -->
       <div th:if="${isOverdue[stat.index]}" class="aviso">
         <strong>Manutenção</strong> de Equipamento <strong>atrasada</strong> a
         <span th:text="${dateUtils.daysBetween(item.proxima_qualificacao, #dates.createToday())}"></span>

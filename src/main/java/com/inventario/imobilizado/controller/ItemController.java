@@ -9,16 +9,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -50,7 +46,7 @@ public class ItemController {
 
         Item item = new Item();
 
-        item.setId_item(data.getId_item());
+        item.setIdItem(data.getIdItem());
 
         item.setDescricao(data.getDescricao());
 
@@ -58,19 +54,19 @@ public class ItemController {
 
         item.setPatrimonio(data.getPatrimonio());
 
-        item.setData_nota_fiscal(data.getData_nota_fiscal());
+        item.setDataNotaFiscal(data.getDataNotaFiscal());
 
-        item.setLocalizacao_atual(data.getLocalizacao_atual());
+        item.setLocalizacaoAtual(data.getLocalizacaoAtual());
 
-        item.setData_entrada(data.getData_entrada());
+        item.setDataEntrada(data.getDataEntrada());
 
-        item.setUltima_qualificacao(data.getUltima_qualificacao());
+        item.setUltimaQualificacao(data.getUltimaQualificacao());
 
-        item.setProxima_qualificacao(data.getProxima_qualificacao());
+        item.setProximaQualificacao(data.getProximaQualificacao());
 
-        item.setComentario_manutencao(data.getComentario_manutencao());
+        item.setComentarioManutencao(data.getComentarioManutencao());
 
-        item.setPrazo_manutencao(data.getPrazo_manutencao());
+        item.setPrazoManutencao(data.getPrazoManutencao());
 
         item.setEstado(data.getEstado());
 
@@ -78,13 +74,13 @@ public class ItemController {
 
         item.setStatus(data.getStatus());
 
-        item.setNumero_de_serie(data.getNumero_de_serie());
+        item.setNumeroDeSerie(data.getNumeroDeSerie());
 
         item.setModelo(modeloInterface.findByNomeAndMarca(modelo.getNome(), brand));
 
         item.setLocalizacao(locationInterface.findById(data.getLocalizacao()).get());
 
-        item.setNumero_nota_fiscal(data.getNumero_nota_fiscal());
+        item.setNumeroNotaFiscal(data.getNumeroNotaFiscal());
 
         itemInterface.save(item);
         return ResponseEntity.ok(item);
@@ -102,38 +98,38 @@ public class ItemController {
     }
 
     @PutMapping("/{id_item}")
-    public ResponseEntity<Item> PutUser(@PathVariable Integer id_item,@RequestBody Item newItem){
-        itemInterface.findById(id_item).map(item -> {
+    public ResponseEntity<Item> putUser(@PathVariable Integer idItem,@RequestBody Item newItem){
+        itemInterface.findById(idItem).map(item -> {
             item.setDescricao(newItem.getDescricao());
             item.setPotencia(newItem.getPotencia());
             item.setPatrimonio(newItem.getPatrimonio());
-            item.setData_nota_fiscal(newItem.getData_nota_fiscal());
-            item.setLocalizacao_atual(newItem.getLocalizacao_atual());
-            item.setData_entrada(newItem.getData_entrada());
-            item.setUltima_qualificacao(newItem.getUltima_qualificacao());
-            item.setProxima_qualificacao(newItem.getProxima_qualificacao());
+            item.setDataNotaFiscal(newItem.getDataNotaFiscal());
+            item.setLocalizacaoAtual(newItem.getLocalizacaoAtual());
+            item.setDataEntrada(newItem.getDataEntrada());
+            item.setUltimaQualificacao(newItem.getUltimaQualificacao());
+            item.setProximaQualificacao(newItem.getProximaQualificacao());
             item.setEstado(newItem.getEstado());
             item.setCategoria(newItem.getCategoria());
             item.setStatus(newItem.getStatus());
-            item.setNumero_de_serie(newItem.getNumero_de_serie());
+            item.setNumeroDeSerie(newItem.getNumeroDeSerie());
             item.setModelo(newItem.getModelo());
             item.setLocalizacao(newItem.getLocalizacao());
-            item.setNumero_de_serie(newItem.getNumero_de_serie());
-            item.setComentario_manutencao(newItem.getComentario_manutencao());
-            item.setPrazo_manutencao(newItem.getPrazo_manutencao());
+            item.setNumeroDeSerie(newItem.getNumeroDeSerie());
+            item.setComentarioManutencao(newItem.getComentarioManutencao());
+            item.setPrazoManutencao(newItem.getPrazoManutencao());
             return itemInterface.save(item);
         }).orElseThrow();
         return ResponseEntity.ok(newItem);
     }
 
     @DeleteMapping("/{id_item}")
-    public  ResponseEntity<String> DeleteUser(@PathVariable Integer id_item){
-        itemInterface.deleteById(id_item);
+    public  ResponseEntity<String> deleteUser(@PathVariable Integer idItem){
+        itemInterface.deleteById(idItem);
         return ResponseEntity.ok("Item deletado com Sucesso");
     }
 
     @GetMapping("/paged")
-    public Page<Item> PagedItem(Integer page, Integer pageSize, ItemInterface itemInterface, String order) {
+    public Page<Item> pagedItem(Integer page, Integer pageSize, ItemInterface itemInterface, String order) {
 
         // http://localhost:8080/page/Usuarios?order=sobrenome
         if (order.equals("descricao")){

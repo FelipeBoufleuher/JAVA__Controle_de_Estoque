@@ -2,7 +2,6 @@ package com.inventario.imobilizado.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.Date;
 
 
 @Entity
@@ -11,24 +10,24 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id_acao")
+@EqualsAndHashCode(of = "idAcao")
 public class Action {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_acao")
-    private int id_acao;
+    private int idAcao;
 
     private String entidade;
 
     @Column(name = "ra_rna")
-    private String ra_rna;
+    private String raRna;
 
     @Temporal(TemporalType.DATE)
-    private String data_emprestimo;
+    private String dataEmprestimo;
 
     @Temporal(TemporalType.DATE)
-    private String data_devolucao;
+    private String dataDevolucao;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id_usuario")
@@ -38,12 +37,12 @@ public class Action {
     @JoinColumn(name = "item_id_item")
     private Item item;
 
-    private int tipo_acao;
+    private int tipoAcao;
 
     @ManyToOne
     @JoinColumn(name = "anexos_id_anexos")
     private Attachment anexos;
 
-    private int localizacao_id_localizacao;
+    private int localizacaoIdLocalizacao;
 
 }

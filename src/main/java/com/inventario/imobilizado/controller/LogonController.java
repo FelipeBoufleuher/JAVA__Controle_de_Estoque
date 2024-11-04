@@ -14,39 +14,14 @@ public class LogonController {
     @Autowired
     private UserInterface userInterface;
 
-    /* @PostMapping("/logon")
-    public ResponseEntity<?> userLogon(@RequestBody LogonDTO user){
-        User usuarioBanco = userInterface.findByEmail(user.getEmail());
-
-        if (usuarioBanco == null) {
-            if (user.getSenha().equals(user.getConfirmar_senha())) {
-                User usuario = new User();
-                usuario.setNome(user.getNome());
-                usuario.setSobrenome(user.getSobrenome());
-                usuario.setEmail(user.getEmail());
-                usuario.setTipo_usuario(user.getTipo_usuario());
-                usuario.setSenha(user.getSenha());
-                userInterface.save(usuario);
-
-                return ResponseEntity.ok().body("Usuário cadastrado com sucesso.");
-            }
-            else {
-                return ResponseEntity.badRequest().body("As senhas não coincidem.");
-            }
-        }
-        else {
-            return ResponseEntity.badRequest().body("Email já cadastrado.");
-        }
-    } */
-
     @PostMapping("/logon")
     public ResponseEntity<?> userLogon(@RequestBody LogonDTO user){
-    if (user.getSenha().equals(user.getConfirmar_senha())) {
+    if (user.getSenha().equals(user.getConfirmarSenha())) {
         User usuario = new User();
         usuario.setNome(user.getNome());
         usuario.setSobrenome(user.getSobrenome());
         usuario.setEmail(user.getEmail());
-        usuario.setTipo_usuario(user.getTipo_usuario());
+        usuario.setTipoUsuario(user.getTipoUsuario());
         usuario.setSenha(user.getSenha());
         userInterface.save(usuario);
 

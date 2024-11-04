@@ -102,11 +102,13 @@ services:
     volumes:
       - .:/usr/src
     working_dir: /usr/src
+    environment:
+      - SONAR_TOKEN=${SONAR_TOKEN}
     command: >
       mvn clean verify sonar:sonar
       -Dsonar.projectKey=ControleDeEstoqueDocker
       -Dsonar.host.url=http://sonarqube:9000
-      -Dsonar.login=sqp_eaf54fbb62611cfa9857a9b5dbd96bc35f453784
+      -Dsonar.login=${SONAR_TOKEN}
     depends_on:
       - sonarqube
 

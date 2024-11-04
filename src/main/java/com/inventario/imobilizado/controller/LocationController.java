@@ -28,22 +28,22 @@ public class LocationController {
     }
 
     @GetMapping("/locationList")
-    public ModelAndView GetAll(){
+    public ModelAndView getAll(){
         ModelAndView modelAndView = new ModelAndView();
-        List<Location> AllLocations = locationInterface.findAll();
-        modelAndView.addObject("locations", AllLocations);
+        List<Location> allLocations = locationInterface.findAll();
+        modelAndView.addObject("locations", allLocations);
         modelAndView.setViewName("location");
         return modelAndView;
     }
 
     @GetMapping("/location/getByName/{nome}")
-    public ResponseEntity<Location> GetByEmail(@PathVariable String nome){
+    public ResponseEntity<Location> getByEmail(@PathVariable String nome){
         Location location = locationInterface.findByNome(nome);
         return ResponseEntity.ok(location);
     }
 
     @PostMapping("/location")
-    public ModelAndView PostLocation(@ModelAttribute Location location, RedirectAttributes redirectAttributes){
+    public ModelAndView postLocation(@ModelAttribute Location location, RedirectAttributes redirectAttributes){
         System.out.println(location.getNome());
         locationInterface.save(location);
         redirectAttributes.addFlashAttribute("locationSaved", true);

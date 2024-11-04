@@ -112,34 +112,34 @@ public class ExcelExportService {
             row.createCell(1).setCellValue(item.getModelo().getMarca().toString());
             row.createCell(2).setCellValue(item.getModelo().toString());
             row.createCell(3).setCellValue(item.getCategoria().toString());
-            row.createCell(4).setCellValue(item.getNumero_de_serie());
+            row.createCell(4).setCellValue(item.getNumeroDeSerie());
             row.createCell(5).setCellValue(item.getEstado().toString());
             row.createCell(6).setCellValue(item.getLocalizacao().toString());
-            row.createCell(7).setCellValue(item.getLocalizacao_atual());
+            row.createCell(7).setCellValue(item.getLocalizacaoAtual());
             row.createCell(8).setCellValue(item.getPotencia());
-            row.createCell(9).setCellValue(item.getNumero_nota_fiscal());
+            row.createCell(9).setCellValue(item.getNumeroNotaFiscal());
 
             Cell dataNotaFiscal = row.createCell(10);
-            dataNotaFiscal.setCellValue(item.getData_nota_fiscal());
+            dataNotaFiscal.setCellValue(item.getDataNotaFiscal());
             dataNotaFiscal.setCellStyle(dateCellStyle);
 
             Cell dataEntrada = row.createCell(11);
-            dataEntrada.setCellValue(item.getData_entrada());
+            dataEntrada.setCellValue(item.getDataEntrada());
             dataEntrada.setCellStyle(dateCellStyle);
 
             Cell ultimaManutencao = row.createCell(12);
-            ultimaManutencao.setCellValue(item.getUltima_qualificacao());
+            ultimaManutencao.setCellValue(item.getUltimaQualificacao());
             ultimaManutencao.setCellStyle(dateCellStyle);
 
             Cell proximaManutencao = row.createCell(13);
-            proximaManutencao.setCellValue(item.getProxima_qualificacao());
+            proximaManutencao.setCellValue(item.getProximaQualificacao());
             proximaManutencao.setCellStyle(dateCellStyle);
 
             Cell prazoManutencao = row.createCell(14);
-            prazoManutencao.setCellValue(item.getPrazo_manutencao());
+            prazoManutencao.setCellValue(item.getPrazoManutencao());
             prazoManutencao.setCellStyle(dateCellStyle);
 
-            row.createCell(15).setCellValue(item.getComentario_manutencao());
+            row.createCell(15).setCellValue(item.getComentarioManutencao());
             row.createCell(16).setCellValue(item.getStatus().toString());
         }
 
